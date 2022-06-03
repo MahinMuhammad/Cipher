@@ -248,10 +248,11 @@ return nw;
 
 int main()
 {
-    int diff, n=10;
+    int diff;
+    bool run = true; //to run to loops for menu
     string wrd, newwrd; // wrd is inserted word and newwrd is after convertion
     char side;
-    for(int i=0; i<n; n=i+n)
+    while(run)
     {
         cout << "Input '>' to shift to the Right \nInput '<' to shift to the left \nInput 'E' to exit \n:";
         cin >> side;
@@ -263,14 +264,16 @@ int main()
             // shifting each letter by 0th position is not encryption of decryption, hence using this number to go back
             cin >> diff;
             cin.get(); //to bypass an unknown out_of_range exection
-            for(int k=0; k<n; n=k+n)
+            while(run)
             {
                 wrd.clear();
-                newwrd.clear(); // as I do not know how getline() and string.insert() works I prefere not to override the data i loop and erasing it each time
+                newwrd.clear(); // as I do not know how getline() and string.insert() works I prefere not to override the data i loop and thus erasing it each time
+
                 if(diff==0)
                 break;
-                cout << "(Input '0' instead of an word to go back to menu for a new settings)" << endl;
-                cout << "word :";
+
+                cout << "(Input only '0' to go back to menu for a new setup)" << endl;
+                cout << "Input :";
                 getline(cin, wrd);
 
                 if(wrd.at(0)=='0')
