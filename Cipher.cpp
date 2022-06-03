@@ -4,50 +4,7 @@
 using namespace std;
 
 static char c; // keeping the input out case same
-bool check(string word)
-{
-    bool flag = true;
-    for(int i=0; i<word.length(); i++)
-    {   
-        word.at(i) = tolower(word.at(i));
-        switch (word.at(i))
-        {
-        case 'a':
-        case 'b':
-        case 'c':
-        case 'd':
-        case 'e':
-        case 'f':
-        case 'g':
-        case 'h':
-        case 'i':
-        case 'j':
-        case 'k':
-        case 'l':
-        case 'm':
-        case 'n':
-        case 'o':
-        case 'p':
-        case 'q':
-        case 'r':
-        case 's':
-        case 't':
-        case 'u':
-        case 'v':
-        case 'w':
-        case 'x':
-        case 'y':
-        case 'z':
-        case ' ':
-        case '.':
-            break;
-         default:
-            flag = false;
-            break;
-        }
-    }
-    return flag;
-}
+
 int position(char word)
 {
     c = word;
@@ -291,22 +248,21 @@ return nw;
 
 int main()
 {
-    int diff, n=10, s; // s is size of word
+    int diff, n=10;
     string wrd, newwrd; // wrd is inserted word and newwrd is after convertion
     char side;
     for(int i=0; i<n; n=i+n)
     {
         cout << "Input '>' to shift to the Right \nInput '<' to shift to the left \nInput 'E' to exit \n:";
         cin >> side;
-        side = toupper(side); // to change iput e to E
-        if(side=='E')
+        if(side=='E' || side=='e')
         break;
         else if (side=='>' || side == '<')
         {
             cout << "(Enter '0' to choose side again) \nShift each letter by :";
             // shifting each letter by 0th position is not encryption of decryption, hence using this number to go back
             cin >> diff;
-            cin.get();
+            cin.get(); //to bypass an unknown out_of_range exection
             for(int k=0; k<n; n=k+n)
             {
                 wrd.clear();
@@ -316,36 +272,28 @@ int main()
                 cout << "(Input '0' instead of an word to go back to menu for a new settings)" << endl;
                 cout << "word :";
                 getline(cin, wrd);
-                s = wrd.length();
+
                 if(wrd.at(0)=='0')
                 break;
-                if(!check(wrd))
-                {
-                    cout << "Wrong Input (Alphabets only)" << endl;
-                    continue;
-                }
+
                 else if(side == '>')
                 {
-                    for(int i=0; i<s; i++)
+                    for(int i=0; i<wrd.length(); i++)
                     {
-                        if(wrd.at(i)==' ')
-                            newwrd.insert(i, 1, wrd.at(i));
-                        else if(wrd.at(i)=='.')
-                            newwrd.insert(i, 1, wrd.at(i));
-                        else
+                        if((wrd.at(i)>='a' && wrd.at(i)<='z') || (wrd.at(i)>='A' && wrd.at(i)<='Z'))
                             newwrd.insert(i, 1, newWord(newPos(position(wrd.at(i)) + diff)) );
+                        else
+                            newwrd.insert(i, 1, wrd.at(i));
                     }
                 }
                 else if(side == '<')
                 {
-                    for(int i=0; i<s; i++)
+                    for(int i=0; i<wrd.length(); i++)
                     {
-                        if(wrd.at(i)==' ')
-                            newwrd.insert(i, 1, wrd.at(i));
-                        else if(wrd.at(i)=='.')
-                            newwrd.insert(i, 1, wrd.at(i));
-                        else
+                        if((wrd.at(i)>='a' && wrd.at(i)<='z') || (wrd.at(i)>='A' && wrd.at(i)<='Z'))
                             newwrd.insert(i, 1, newWord(newPos(position(wrd.at(i)) - diff)) );
+                        else
+                            newwrd.insert(i, 1, wrd.at(i));
                     }
                 }
                 cout << "->" << newwrd << endl;
