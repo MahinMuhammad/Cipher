@@ -24,10 +24,21 @@ int newPos(int a) //a is position
     return r;
 }
 
+bool isNumber(string s)
+{
+    for (int i = 0; i < s.length(); ++i)
+    {
+        if(isdigit(s.at(i))==0)
+            return false;
+    }
+    return true;
+}
+
 int main()
 {
     int diff;
     bool run = true; //to run to loops for menu
+    string checkInt; // to check int in user inputs
     string wrd, newwrd; // wrd is inserted word and newwrd is after convertion
     char side;
     while(run)
@@ -40,8 +51,27 @@ int main()
         {
             cout << "(Enter '0' to choose side again) \nShift each letter by :";
             // shifting each letter by 0th position is not encryption of decryption, hence using this number to go back
-            cin >> diff;
+            cin >> checkInt;
             cin.get(); //to bypass an unknown out_of_range exection
+            while(run)
+            {
+                if(isNumber(checkInt))
+                {
+                    diff = stoi(checkInt);
+                    break;
+                }
+                else
+                {
+                    cout << "Enter digits only: ";
+                    cin >> checkInt;
+                    cin.get();
+                }
+            }
+            // if(!cin)
+            // {
+            //     cin.clear();
+            //     cin.ignore();
+            // }
             while(run)
             {
                 wrd.clear();
